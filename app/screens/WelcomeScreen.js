@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: 200, 
-    height: 220
+    width: 230, 
+    height: 260
   },
 });
 
@@ -26,7 +26,7 @@ function WelcomeScreen ({navigation}) {
                 underlayColor = "#DFDCC4"
                 onPress={() => navigation.navigate('Login')}>
                   <Image 
-                  source = {require('C:/Users/kaiak/ComebackSzn/app/assets/logored.png')} 
+                  source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logored.png')} 
                   style = {styles.logo}
                   />
                 </TouchableHighlight>

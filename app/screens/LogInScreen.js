@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       width: 200, 
       height: 220,
       position: 'absolute',
-      bottom: 500,
+      bottom: 450,
     },
 });
 
@@ -39,7 +39,7 @@ export default function LogInScreen() {
 
       return (
         <SafeAreaView style = {styles.background}>
-            <Image source = {require('C:/Users/kaiak/ComebackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
+            <Image source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
             <TextInput style={styles.username}
               onChangeText={onChangeUser}
               value={text}

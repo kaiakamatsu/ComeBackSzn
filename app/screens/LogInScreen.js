@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, SafeAreaView, Alert, Image, TouchableOpacity} from 'react-native';
 import {colors} from '../components/colors';
 import { useNavigation } from '@react-navigation/native';
+import {BackButton} from '../components/BackButton';
 
 
 export default function LogInScreen() {
@@ -11,7 +12,10 @@ export default function LogInScreen() {
             <Image source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
             <UsernameTextInput/>
             <PasswordTextInput/>
-            <BackButton/>
+            <BackButton
+            backstyle = {styles.backbutton}
+            backtextstyle = {styles.backtext}
+            />
             <LogInButton2/>
         </SafeAreaView>
       );
@@ -62,19 +66,6 @@ function LogInButton2() {
   );
 }
 
-function BackButton() {
-
-  const navigation = useNavigation();
-
-  return (
-      <TouchableOpacity style={styles.backbutton} 
-      onPress = {()=> navigation.goBack()}>
-          <Text style = {styles.backtext}>
-              BACK
-          </Text>
-      </TouchableOpacity>
-  );
-}
 
 const styles = StyleSheet.create({
   background: {

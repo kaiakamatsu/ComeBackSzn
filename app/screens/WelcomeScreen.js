@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, SafeAreaView, Alert, Image, TouchableHighlight} from 'react-native';
-import {FadeInView} from '../components/FadeIn'
+import {FadeInView} from '../components/FadeIn';
 import {colors} from '../components/colors';
+import {LogoRed} from '../components/LogoRed';
 
 export default function WelcomeScreen ({navigation}) {
           return (
@@ -10,8 +11,7 @@ export default function WelcomeScreen ({navigation}) {
                 activeOpacity = {0.6}
                 underlayColor = {colors['color-tan']}
                 onPress={() => navigation.navigate('Account')}>
-                  <Image 
-                  source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logored.png')} 
+                  <LogoRed
                   style = {styles.logo}
                   />
                 </TouchableHighlight>

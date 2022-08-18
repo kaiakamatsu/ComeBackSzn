@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, SafeAreaView, Alert, Image, TouchableOpacity} from 'react-native';
 import {colors} from '../components/colors';
 import { useNavigation } from '@react-navigation/native';
+import {LogoBlack} from '../components/LogoBlack';
 
 
 export default function AccountScreen(navigation) {
 
       return (
         <SafeAreaView style = {styles.background}>
-            <Image source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
+            <LogoBlack
+            style = {styles.logo}/>
             <SignUpButton/>
             <LogInButton/>
         </SafeAreaView>

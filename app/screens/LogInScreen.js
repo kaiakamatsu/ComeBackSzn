@@ -6,36 +6,50 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function LogInScreen() {
 
-  const [user, onChangeUser] = useState('USERNAME');
-  const [pass, onChangePass] = useState('PASSWORD');
-
       return (
         <SafeAreaView style = {styles.background}>
             <Image source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
-            <TextInput style={styles.username}
-              autoCorrect = {false}
-              clearTextOnFocus = {true}
-              keyboardAppearance = {"dark"}
-              placeholder = "USERNAME"
-              onChangeText={(value) => onChangeUser(value)}
-              value={user}
-              
-            />
-            <TextInput style={styles.password}
-              autoCorrect = {false}
-              clearTextOnFocus = {true}
-              keyboardAppearance = {"dark"}
-              placeholder = "PASSWORD"
-              onChangeText={(value) => onChangePass(value)}
-              value={pass}
-
-            />
+            <UsernameTextInput/>
+            <PasswordTextInput/>
             <BackButton/>
             <LogInButton2/>
         </SafeAreaView>
       );
 };
 
+function UsernameTextInput(){
+
+  const [user, onChangeUser] = useState('USERNAME');
+
+  return(
+    <TextInput style={styles.username}
+        autoCorrect = {false}
+        clearTextOnFocus = {true}
+        keyboardAppearance = {"dark"}
+        placeholder = "USERNAME"
+        onChangeText={(value) => onChangeUser(value)}
+        value={user}
+            
+    />
+  );
+}
+
+function PasswordTextInput(){
+
+  const [pass, onChangePass] = useState('PASSWORD');
+
+  return(
+    <TextInput style={styles.password}
+      autoCorrect = {false}
+      clearTextOnFocus = {true}
+      keyboardAppearance = {"dark"}
+      placeholder = "PASSWORD"
+      onChangeText={(value) => onChangePass(value)}
+      value={pass}
+
+    />
+  );
+}
 
 function LogInButton2() {
 

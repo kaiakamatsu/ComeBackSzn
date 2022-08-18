@@ -20,6 +20,10 @@ export default function WelcomeScreen ({navigation}) {
           );
 };
 
+
+////https://blog.devgenius.io/waiting-for-asynchronous-load-in-react-native-bc160f2389c7
+
+
 const styles = StyleSheet.create({
   background: {
     flex: 1,

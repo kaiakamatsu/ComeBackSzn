@@ -1,5 +1,5 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableWithoutFeedback, TouchableOpacity, TouchableHighlight, View, Image, Button, Alert, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import { AppLoading } from 'expo';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import MyStack from './app/components/stack';
 

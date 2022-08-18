@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, SafeAreaView, Alert, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TextInput, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {colors} from '../components/colors';
 import { useNavigation } from '@react-navigation/native';
 import {BackButton} from '../components/BackButton';
-
+import {LogoBlack} from '../components/LogoBlack';
 
 export default function LogInScreen() {
 
       return (
         <SafeAreaView style = {styles.background}>
-            <Image source = {require('C:/Users/kaiak/ComeBackSzn/app/assets/logoblack.png')} style = {styles.logo}></Image>
+            <LogoBlack
+            style = {styles.logo}/>
             <UsernameTextInput/>
             <PasswordTextInput/>
             <BackButton

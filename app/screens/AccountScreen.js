@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import {LogoBlack} from '../components/LogoBlack';
 
 
-export default function AccountScreen(navigation) {
+export default function AccountScreen() {
 
       return (
         <SafeAreaView style = {styles.background}>

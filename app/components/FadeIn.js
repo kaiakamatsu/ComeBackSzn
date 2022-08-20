@@ -2,6 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import { Animated} from 'react-native';
 
 export const FadeInView = (props) => {
+  
     const fade = useRef(new Animated.Value(0)).current
   
     useEffect(() => {

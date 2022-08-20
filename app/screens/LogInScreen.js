@@ -1,71 +1,80 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TextInput, SafeAreaView, Image, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import {colors} from '../components/colors';
-import { useNavigation } from '@react-navigation/native';
 import {BackButton} from '../components/BackButton';
 import {LogoBlack} from '../components/LogoBlack';
+import {auth} from '../../backend/firebase';
+import {signOut, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
 
-export default function LogInScreen() {
+export default function LogInScreen({navigation}) {
+
+      signOut(auth);
+
+      useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            navigation.navigate("Home")
+          }
+        })
+
+        return unsubscribe
+      }, []);
+
+      const handleLogIn = () => {
+
+        signInWithEmailAndPassword(auth, email, pass)
+            .then(UserCredential => {
+                const user = UserCredential.user;
+                console.log("Logged in with: ", user.email);
+            })
+            .catch(error => alert(error.message))
+      };
+
+      const [email, setEmail] = useState('');
+
+      const [pass, setPass] = useState('');
 
       return (
-        <SafeAreaView style = {styles.background}>
-            <LogoBlack
-            style = {styles.logo}/>
-            <UsernameTextInput/>
-            <PasswordTextInput/>
-            <BackButton
-            backstyle = {styles.backbutton}
-            backtextstyle = {styles.backtext}
-            />
-            <LogInButton2/>
-        </SafeAreaView>
+        <TouchableWithoutFeedback onPress = {Keyboard.dismiss} accessible = {false}>
+          <SafeAreaView style = {styles.background}>
+            <KeyboardAvoidingView style = {{flex: 1}} behavior = "position">
+              <LogoBlack
+              style = {styles.logo}/>
+              <TextInput style={styles.email}
+              autoCorrect = {false}
+              clearTextOnFocus = {true}
+              keyboardAppearance = {"dark"}
+              placeholder = "EMAIL"
+              textAlign = "center"
+              value={email}
+              onChangeText={(text) => setEmail(text)}   
+              />
+              <TextInput style={styles.password}
+              autoCorrect = {false}
+              clearTextOnFocus = {true}
+              keyboardAppearance = {"dark"}
+              placeholder = "PASS"
+              textAlign = "center"
+              secureTextEntry
+              value={pass}
+              onChangeText={(text) => setPass(text)}
+              />
+              <BackButton
+              backstyle = {styles.backbutton}
+              backtextstyle = {styles.backtext}
+              />
+              <TouchableOpacity 
+              style={styles.loginbutton}
+              onPress={handleLogIn}>
+                <Text style = {styles.logintext}>
+                  LOG IN
+                </Text>
+              </TouchableOpacity>
+            </KeyboardAvoidingView>
+          </SafeAreaView>
+        </TouchableWithoutFeedback>
       );
 };
-
-function UsernameTextInput(){
-
-  const [user, onChangeUser] = useState('USERNAME');
-
-  return(
-    <TextInput style={styles.username}
-        autoCorrect = {false}
-        clearTextOnFocus = {true}
-        keyboardAppearance = {"dark"}
-        placeholder = "USERNAME"
-        onChangeText={(value) => onChangeUser(value)}
-        value={user}
-            
-    />
-  );
-}
-
-function PasswordTextInput(){
-
-  const [pass, onChangePass] = useState('PASSWORD');
-
-  return(
-    <TextInput style={styles.password}
-      autoCorrect = {false}
-      clearTextOnFocus = {true}
-      keyboardAppearance = {"dark"}
-      placeholder = "PASSWORD"
-      onChangeText={(value) => onChangePass(value)}
-      value={pass}
-
-    />
-  );
-}
-
-function LogInButton2() {
-
-  return (
-      <TouchableOpacity style={styles.loginbutton}>
-          <Text style = {styles.logintext}>
-              LOG IN
-          </Text>
-      </TouchableOpacity>
-  );
-}
 
 
 const styles = StyleSheet.create({
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  username: {
+  email: {
       height: 50,
       width: 165,
       margin: 30,
@@ -83,7 +92,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       padding: 25,
       paddingVertical: 0,
-      top: 125, 
+      top: 400, 
       fontSize: 20,
       color: "black",
     },
@@ -95,23 +104,25 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       padding: 25,
       paddingVertical: 0,
-      top: 100,
+      top: 375,
       fontSize: 20,
       color: "black",
     },
   logo: {
       width: 200, 
       height: 220,
+      left: 15,
       position: 'absolute',
-      bottom: 450,
+      top: 200,
     },
   backbutton:{
     padding: 20,
     backgroundColor: "white",
     borderRadius: 50,
     borderWidth: 2,
-    top: 200,
-    right: 120,
+    width: 85,
+    top: 500,
+    right: 80,
   },
   backtext:{
       fontStyle: "italic",
@@ -126,7 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 50,
     borderWidth: 2,
-    top: 140,
-    left: 120,
+    width: 95,
+    top: 438,
+    left: 210,
   },
 });

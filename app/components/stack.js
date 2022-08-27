@@ -5,6 +5,10 @@ import LogInScreen from '../screens/LogInScreen';
 import AccountScreen from '../screens/AccountScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
+import CalendarScreen from '../screens/CalendarScreen';
+import TasksScreen from '../screens/TasksScreen';
+import HealthyScreen from '../screens/HealthyScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +39,26 @@ export default function MyStack() {
         <Stack.Screen 
           name="Home"
           component={HomeScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Calendar"
+          component={CalendarScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Tasks"
+          component={TasksScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Healthy"
+          component={HealthyScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Settings"
+          component={SettingsScreen} 
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

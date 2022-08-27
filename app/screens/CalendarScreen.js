@@ -3,14 +3,15 @@ import {colors} from '../components/colors';
 import { ButtonOptions } from "../components/ButtonOptions";
 
 
-export default function HomeScreen({navigation, route}) {
+export default function CalendarScreen({navigation, route}) {
     return(
         <View style = {styles.background}>
-            <Text>{route.params.id}'s Home</Text>
+            <Text>{route.params.id}'s Calendar</Text>
             <ButtonOptions ID = {route.params.id}/>
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
   background: {

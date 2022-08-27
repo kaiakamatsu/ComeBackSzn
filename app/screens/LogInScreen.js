@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextInput, SafeAreaView, Image, TouchableOpacity, Keyb
 import {colors} from '../components/colors';
 import {BackButton} from '../components/BackButton';
 import {LogoBlack} from '../components/LogoBlack';
-import {auth} from '../../backend/firebase';
+import {auth, db} from '../../backend/firebase';
 import {signOut, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
 
 export default function LogInScreen({navigation}) {
@@ -13,7 +13,7 @@ export default function LogInScreen({navigation}) {
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
           if (user) {
-            navigation.navigate("Home")
+            navigation.navigate("Home", {id: user.uid});
           }
         })
 

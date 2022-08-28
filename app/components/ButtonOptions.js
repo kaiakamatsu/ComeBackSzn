@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity, Button, StyleSheet, Image} from 'react-nat
 export const ButtonOptions = (props) => {
   
     return (
-        <View style = {styles.buttoncontainer}>
+        <View style = {props.buttoncontainer}>
             <CalendarButton iden = {props.ID} calendarstyle = {styles.calendarbutton}/>
             <TasksButton iden = {props.ID} tasksstyle = {styles.tasksbutton}/>
             <HomeButton iden = {props.ID} homestyle = {styles.homebutton}/>
@@ -15,14 +15,6 @@ export const ButtonOptions = (props) => {
   }
 
   const styles = StyleSheet.create({
-  buttoncontainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    top: 400,
-    borderTopColor: "black",
-    borderTopWidth: 1,
-  },
   homebutton: {
     width: 70,
     height: 70,

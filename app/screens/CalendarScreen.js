@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View} from "react-native";
 import {colors} from '../components/colors';
 import { ButtonOptions } from "../components/ButtonOptions";
-import { Calendar, CalendarList } from "react-native-calendars";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { format } from "date-fns";
 
 
@@ -11,9 +11,9 @@ export default function CalendarScreen({navigation, route}) {
         <View style = {styles.background}>
           <View style = {styles.calendarcontainer}>
             <CalendarList
-              pastScrollRange={10}
+              pastScrollRange={6}
+              futureScrollRange={18}
               onDayPress = {(response) => console.log(response)}
-              initialDate = {Format(now)}
               minDate = {Format (min)}
               markedDates = {getMarkedDates(now, appointments)}
               theme = {{
@@ -36,7 +36,7 @@ export default function CalendarScreen({navigation, route}) {
     );
 };
 
-var now = new Date();
+const now = new Date();
 
 const min = new Date (2022, 7, 1);
 
@@ -46,6 +46,10 @@ const appointments = [
   {
     date: "2022-08-27T05:00:00.00",
     title: "Meeting with Harold",
+  },
+  {
+    date: "2022-08-28T05:00:00.00",
+    title: "Test",
   },
   {
     date: "2022-09-05T05:00:00.00",

@@ -13,12 +13,13 @@ export default function LogInScreen({navigation}) {
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
           if (user) {
-            navigation.navigate("Home", {id: user.uid});
+            navigation.navigate("Home", {id: user.email});
           }
         })
 
         return unsubscribe
       }, []);
+
 
       const handleLogIn = () => {
 
@@ -26,6 +27,7 @@ export default function LogInScreen({navigation}) {
             .then(UserCredential => {
                 const user = UserCredential.user;
                 console.log("Logged in with: ", user.email);
+
             })
             .catch(error => alert(error.message))
       };

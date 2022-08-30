@@ -3,6 +3,8 @@ import {colors} from '../components/colors';
 import { ButtonOptions } from "../components/ButtonOptions";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { format } from "date-fns";
+import {db} from '../../backend/firebase';
+import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 
 
 export default function CalendarScreen({navigation, route}) {
@@ -75,6 +77,21 @@ const getMarkedDates = (today, events = []) => {
   })
 
   return markedDates;
+};
+
+function handleEventCreation (email, title, time, description){
+  try{
+    const colRef = collection(db, "users", email, "events")
+    const docRef = await addDoc(colRef, {
+      Title: title,
+      Time: time, 
+      Description: description, 
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch(e){
+    console.error("Error adding document: ", e);
+  }
 };
 
 const styles = StyleSheet.create({

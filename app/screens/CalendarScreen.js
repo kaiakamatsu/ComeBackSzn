@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View, Modal, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
 import {colors} from '../components/colors';
 import { ButtonOptions } from "../components/ButtonOptions";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
@@ -9,13 +10,22 @@ import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 
 export default function CalendarScreen({navigation, route}) {
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleModal = (response) => {
+    console.log(response);
+    setModalVisible(!modalVisible);
+    const datetext = response.month + " - " + response.day + " - " + response.year;
+    console.log(datetext);
+  };
+
     return(
         <View style = {styles.background}>
           <View style = {styles.calendarcontainer}>
             <CalendarList
               pastScrollRange={6}
               futureScrollRange={18}
-              onDayPress = {(response) => console.log(response)}
+              onDayPress = {(response) => handleModal(response)}
               minDate = {Format (min)}
               markedDates = {getMarkedDates(now, appointments)}
               theme = {{
@@ -32,6 +42,25 @@ export default function CalendarScreen({navigation, route}) {
                 arrowColor: colors['color-red'],
               }}
             />
+            <Modal 
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.modalView}>
+                <Text></Text>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text>Hide Modal</Text>
+                </TouchableOpacity>
+              </View>
+            </Modal>
           </View>
           <ButtonOptions buttoncontainer = {styles.bcontainer} ID = {route.params.id}/>
         </View>
@@ -46,19 +75,19 @@ const Format = (date = new Date()) => format(date, "yyyy-MM-dd");
 
 const appointments = [
   {
-    date: "2022-08-27T05:00:00.00",
+    date: "2022-08-27",
     title: "Meeting with Harold",
   },
   {
-    date: "2022-08-28T05:00:00.00",
+    date: "2022-08-28",
     title: "Test",
   },
   {
-    date: "2022-09-05T05:00:00.00",
+    date: "2022-09-05",
     title: "Flight to Berlin",
   },
   {
-    date: "2022-09-17T05:00:00.00",
+    date: "2022-09-17T12:30:00-07:00",
     title: "Brother's Birthday!",
   },
 ]; //after integrating with backend, this would come from the firebase db 
@@ -79,21 +108,6 @@ const getMarkedDates = (today, events = []) => {
   return markedDates;
 };
 
-function handleEventCreation (email, title, time, description){
-  try{
-    const colRef = collection(db, "users", email, "events")
-    const docRef = await addDoc(colRef, {
-      Title: title,
-      Time: time, 
-      Description: description, 
-    });
-
-    console.log("Document written with ID: ", docRef.id);
-  } catch(e){
-    console.error("Error adding document: ", e);
-  }
-};
-
 const styles = StyleSheet.create({
   bcontainer: {
     flexDirection: "row",
@@ -110,5 +124,22 @@ const styles = StyleSheet.create({
   },
   calendarcontainer:{ 
     bottom: 50,
+  },
+  modalView: {
+    height: 600,
+    top: 100,
+    margin: 20,
+    backgroundColor: colors['color-tan'],
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
 });

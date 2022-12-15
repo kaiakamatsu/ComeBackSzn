@@ -5,17 +5,21 @@ import { ButtonOptions } from "../components/ButtonOptions";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { format } from "date-fns";
 import {db} from '../../backend/firebase';
-import { doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { doc, setDoc, collection, addDoc, arrayRemove } from "firebase/firestore";
 
 
 export default function CalendarScreen({navigation, route}) {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [datetext, setdatetext] = useState("no date");
 
   const handleModal = (response) => {
+    events = "";
     console.log(response);
     setModalVisible(!modalVisible);
-    const datetext = response.month + " - " + response.day + " - " + response.year;
+    const update = response.month + " - " + response.day + " - " + response.year;
+    setdatetext(update);
+    getApps(response.dateString);
     console.log(datetext);
   };
 
@@ -52,12 +56,13 @@ export default function CalendarScreen({navigation, route}) {
               }}
             >
               <View style={styles.modalView}>
-                <Text></Text>
+                <Text style={styles.agenda}>AGENDA {datetext}</Text>
+                <Text style={styles.event}>{events} </Text>
                 <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
+                  style={styles.buttonClose}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <Text>Hide Modal</Text>
+                  <Text style={styles.hide}>HIDE</Text>
                 </TouchableOpacity>
               </View>
             </Modal>
@@ -73,21 +78,41 @@ const min = new Date (2022, 7, 1);
 
 const Format = (date = new Date()) => format(date, "yyyy-MM-dd");
 
+let events = null;
+
+const getApps = (datetext) => {
+  console.log(datetext);
+  let apps = appointments.filter(day => day.date.includes(datetext));
+  console.log(apps);
+  for (let i = 0; i < apps.length; i++)
+    events = events + apps[i].title + "\n" + "\n" + "\n";
+  console.log(events);
+  return events;
+}
+
 const appointments = [
   {
-    date: "2022-08-27",
+    date: "2022-12-12T12:30:00-07:00",
     title: "Meeting with Harold",
   },
   {
-    date: "2022-08-28",
+    date: "2022-12-13T12:30:00-07:00",
     title: "Test",
   },
   {
-    date: "2022-09-05",
+    date: "2022-12-14T12:30:00-07:00",
     title: "Flight to Berlin",
   },
   {
-    date: "2022-09-17T12:30:00-07:00",
+    date: "2022-12-14T12:30:00-07:00",
+    title: "Eat Hotdog",
+  },
+  {
+    date: "2022-12-14T12:30:00-07:00",
+    title: "CS lecture",
+  },
+  {
+    date: "2022-12-17T12:30:00-07:00",
     title: "Brother's Birthday!",
   },
 ]; //after integrating with backend, this would come from the firebase db 
@@ -142,4 +167,29 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
+  buttonClose: {
+    position: "absolute",
+    bottom: 10,
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 15,
+    borderColor: colors['color-red'],
+  },
+  hide: {
+    fontWeight: "bold",
+    fontStyle: "italic",
+    color: colors['color-red'],
+  },
+  agenda: {
+    fontWeight: "bold",
+    fontStyle: "italic",
+    color: colors['color-red'],
+    fontSize: 20,
+    right: 50,
+  },
+  event: {
+    fontWeight: "bold",
+    fontSize: 15,
+    top: 30.
+  }
 });

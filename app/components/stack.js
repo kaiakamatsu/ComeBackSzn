@@ -9,6 +9,7 @@ import CalendarScreen from '../screens/CalendarScreen';
 import TasksScreen from '../screens/TasksScreen';
 import HealthyScreen from '../screens/HealthyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import PomodoroScreen from '../screens/PomodoroScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +60,11 @@ export default function MyStack() {
         <Stack.Screen 
           name="Settings"
           component={SettingsScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Pomodoro"
+          component={PomodoroScreen} 
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

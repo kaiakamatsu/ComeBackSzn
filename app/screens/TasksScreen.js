@@ -4,16 +4,15 @@ import { ButtonOptions } from "../components/ButtonOptions";
 import React, { useState } from "react";
 import { format } from "date-fns";
 
-
 export default function TasksScreen({navigation, route}) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [taskname, settaskname] = useState("task");
 
+
   const startTask = (name) => {
     setModalVisible(!modalVisible);
     settaskname(name);
-
   };
 
   const renderItem = ({ item }) => (
@@ -27,6 +26,13 @@ export default function TasksScreen({navigation, route}) {
       <Text style = {styles.length}>HOURS: {item.length} </Text>
     </View>
   );
+
+  const startpomodoro = (name) => {
+    console.log(name)
+    setModalVisible(!modalVisible)
+    navigation.navigate("Pomodoro")
+    
+  }
 
     return(
         <View style = {styles.background}>
@@ -49,6 +55,12 @@ export default function TasksScreen({navigation, route}) {
             >
               <View style={styles.modalView}>
                 <Text style={styles.task}>{taskname}</Text>
+                <TouchableOpacity
+                  style={styles.pomodoro}
+                  onPress={() => startpomodoro(taskname)}
+                >
+                  <Text style={styles.method}>POMODORO</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.buttonClose}
                   onPress={() => setModalVisible(!modalVisible)}
@@ -209,5 +221,14 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: colors['color-red'],
     fontSize: 30,
-  }
+  },
+  pomodoro: {
+    top: 50,
+    borderWidth: 2,
+    padding: 15,
+  },
+  method: {
+    fontWeight: "bold",
+    fontStyle: "italic",
+  },
 });

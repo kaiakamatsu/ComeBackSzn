@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   },
   backtext:{
       fontStyle: "italic",
-
   },
   logintext:{
       fontStyle: "italic",
